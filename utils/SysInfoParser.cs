@@ -9,6 +9,13 @@ namespace LogAnalyzer.utils
 {
     class SysInfoParser
     {
+        /// <summary>
+        /// Ok so this is absolutely hideous
+        /// But I don't know that parsing text is ever not hideous
+        /// But here we are
+        /// 
+        /// The Monitor parsing doesn't work yet and I'm trying to modularize this at some point
+        /// </summary>
         private static class ParseBy
         {
             public static string OS = "Main - Runtime OS version";
