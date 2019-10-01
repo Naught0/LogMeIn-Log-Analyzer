@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LogAnalyzer
 {
-    class Utils
+    public static class Utils
     {
         /// <summary>
         ///  Returns filtered text depending on applied filters from UI
@@ -15,7 +13,7 @@ namespace LogAnalyzer
         /// <param name="filterByRight"></param>
         /// <param name="toFilter"></param>
         /// <returns></returns>
-        public string FilterText(List<string> filterByLeft, List<string>filterByRight, string toFilter)
+        public static string FilterText(List<string> filterByLeft, List<string>filterByRight, string toFilter)
         {
             // No filters passed, return full text
             if (filterByLeft.Count == 0 && filterByRight.Count == 0)
@@ -41,7 +39,13 @@ namespace LogAnalyzer
             return builder.ToString();
         }
         
-        private string FilterOne(List<string> filterBy, string toFilter)
+        /// <summary>
+        /// A helper method to filter by a single term to reduce some repetitive code I had before
+        /// </summary>
+        /// <param name="filterBy"></param>
+        /// <param name="toFilter"></param>
+        /// <returns></returns>
+        private static string FilterOne(List<string> filterBy, string toFilter)
         {
             StringBuilder builder = new StringBuilder();
             foreach (string line in toFilter.Split('\n'))

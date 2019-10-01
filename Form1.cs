@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 using LogAnalyzer.Properties;
+using LogAnalyzer.utils;
 
 /*
  * TODO:
@@ -29,10 +30,7 @@ using LogAnalyzer.Properties;
 namespace LogAnalyzer
 {
     public partial class Form1 : Form
-    {
-        // Init utils class
-        private Utils utils = new Utils();
-
+    { 
         // Init open/save file dialogs
         private OpenFileDialog fileDialog = new OpenFileDialog();
         private FontDialog font = new FontDialog
@@ -45,7 +43,10 @@ namespace LogAnalyzer
             AllowVectorFonts = false,
             AllowVerticalFonts = false
         };
+
+        // Default font stored in Settings
         private Font userFont = Settings.Default.Font;
+
         // TODO: Probably should utilize this at some point or something
         private StringCollection recentlyOpenedFiles;
 
@@ -301,13 +302,13 @@ namespace LogAnalyzer
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
                 filterListLeft.Add(_selectedItem);
-                string _newText = utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
                 filterListLeft.Remove(_selectedItem);
-                string _newText = utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();
@@ -319,13 +320,13 @@ namespace LogAnalyzer
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
                 filterListRight.Add(_selectedItem);
-                string _newText = utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
                 filterListRight.Remove(_selectedItem);
-                string _newText = utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();
