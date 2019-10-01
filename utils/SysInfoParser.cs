@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LogAnalyzer.utils;
 
 namespace LogAnalyzer.utils
 {
@@ -45,7 +46,7 @@ namespace LogAnalyzer.utils
                     _l.Add(line);
                 }
             }
-            if (_l.Count != 0)
+            if (! _l.IsEmpty())
                 // Maybe parse this better one day
                 builder.AppendLine(_l.Last().Split('(').Last());
             else
@@ -63,7 +64,7 @@ namespace LogAnalyzer.utils
                     _l.Add(line);
                 }
             }
-            if (_l.Count != 0)
+            if (! _l.IsEmpty())
                 builder.AppendLine(_l.Last().Split(new string[] { "version:" }, StringSplitOptions.None)[1]);
             else
                 builder.AppendLine("No data available.");
@@ -80,7 +81,7 @@ namespace LogAnalyzer.utils
                     _l.Add(line);
                 }
             }
-            if (_l.Count() != 0)
+            if (! _l.IsEmpty())
                 builder.AppendLine(_l.Last().Split(new string[] { ParseBy.AV }, StringSplitOptions.None)[1]);
             else
                 builder.AppendLine("No data available.");
