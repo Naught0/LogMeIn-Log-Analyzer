@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAnalyzer", "LogAnalyzer.csproj", "{8048F5F1-E978-4425-BAE9-ABC775C6BDC9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8048F5F1-E978-4425-BAE9-ABC775C6BDC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8048F5F1-E978-4425-BAE9-ABC775C6BDC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8048F5F1-E978-4425-BAE9-ABC775C6BDC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8048F5F1-E978-4425-BAE9-ABC775C6BDC9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6309C2E8-B5F0-4FFD-AB9E-B36B9494FD31}
+	EndGlobalSection
+EndGlobal
