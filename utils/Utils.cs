@@ -16,14 +16,14 @@ namespace LogAnalyzer
         public static string FilterText(List<string> filterByLeft, List<string>filterByRight, string toFilter)
         {
             // No filters passed, return full text
-            if (filterByLeft.Count == 0 && filterByRight.Count == 0)
+            if (filterByLeft.IsEmpty() && filterByRight.IsEmpty())
                 return toFilter;
 
-            if (filterByRight.Count != 0 && filterByLeft.Count == 0)
+            if (! filterByRight.IsEmpty() && filterByLeft.IsEmpty())
             {
                 return FilterOne(filterByRight, toFilter);
             }
-            else if (filterByRight.Count == 0 && filterByLeft.Count != 0)
+            else if (filterByRight.IsEmpty() && ! filterByLeft.IsEmpty())
             {
                 return FilterOne(filterByLeft, toFilter);
             }
@@ -57,6 +57,21 @@ namespace LogAnalyzer
             }
             return builder.ToString();
 
+        }
+
+        /// <summary>
+        /// Extends List<T> to add and IsEmpty shortcut method
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="l"></param>
+        /// <returns></returns>
+        public static bool IsEmpty<T>(this List<T> l)
+        {
+            if (l.Count == 0 || l == null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
