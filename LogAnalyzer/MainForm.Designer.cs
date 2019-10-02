@@ -1,6 +1,6 @@
 ﻿namespace LogAnalyzer
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -94,19 +94,18 @@
             // 
             this.fontToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.fontToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.fontToolStripMenuItem.Image = global::LogAnalyzer.Properties.Resources.lowercase2;
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.fontToolStripMenuItem.Text = "Font";
+            this.fontToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.FontToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.openToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
-            this.openToolStripMenuItem.Image = global::LogAnalyzer.Properties.Resources.open;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -114,9 +113,8 @@
             // 
             this.exitToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.exitToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
-            this.exitToolStripMenuItem.Image = global::LogAnalyzer.Properties.Resources.close;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -132,8 +130,10 @@
             // 
             // resetFiltersToolStripMenuItem1
             // 
+            this.resetFiltersToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
+            this.resetFiltersToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
             this.resetFiltersToolStripMenuItem1.Name = "resetFiltersToolStripMenuItem1";
-            this.resetFiltersToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.resetFiltersToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.resetFiltersToolStripMenuItem1.Text = "Reset Filters";
             this.resetFiltersToolStripMenuItem1.Click += new System.EventHandler(this.ResetFiltersToolStripMenuItem1_Click);
             // 
@@ -148,6 +148,8 @@
             // 
             // systemInfoToolStripMenuItem
             // 
+            this.systemInfoToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
+            this.systemInfoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.systemInfoToolStripMenuItem.Name = "systemInfoToolStripMenuItem";
             this.systemInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.systemInfoToolStripMenuItem.Text = "System Info";
@@ -307,7 +309,7 @@
             this.scintillaCustom1.TextChanged += new System.EventHandler(this.ScintillaCustom1_TextChanged);
             this.scintillaCustom1.Click += new System.EventHandler(this.ScintillaCustom1_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -318,7 +320,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "LogMeIn Log Analyzer";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);

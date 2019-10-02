@@ -19,7 +19,7 @@ namespace LogAnalyzer
         public readonly DictInfoFormat socketErrorInfo = 
             JsonConvert.DeserializeObject<DictInfoFormat>(Resources.winSockErrorInfo);
 
-        private const string noMatchString = "¯\\_( ͠° ͟ʖ °͠ )_/¯";
+        private const string STR_NO_MATCH = @"¯\_( ͠° ͟ʖ °͠ )_/¯";
 
         // PATCH MANAGEMENT
         // https://www.catalog.update.microsoft.com/ScopedViewGeneric.aspx?updateid={}
@@ -53,7 +53,7 @@ namespace LogAnalyzer
                     }
                 }
                 // More of the same ugly
-                else if (line.Contains(" Socket "))
+                if (line.Contains(" Socket "))
                 {
                     foreach (string code in socketErrorInfo.Keys)
                     {
@@ -64,9 +64,10 @@ namespace LogAnalyzer
                     }
                 }
             }
+            // No matches
             else
             {
-                builder.AppendLine(noMatchString);
+                builder.AppendLine(STR_NO_MATCH);
             }
             return builder.ToString();
         }

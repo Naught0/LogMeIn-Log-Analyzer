@@ -67,7 +67,7 @@
     <StartupObject>LogAnalyzer.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\lmi.ico</ApplicationIcon>
+    <ApplicationIcon>LogAnalyzer\Resources\lmi.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -90,37 +90,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormSysInfo.cs">
+    <Compile Include="LogAnalyzer\FormSysInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSysInfo.Designer.cs">
+    <Compile Include="LogAnalyzer\FormSysInfo.Designer.cs">
       <DependentUpon>FormSysInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="ScintillaCustom.cs">
+    <Compile Include="LogAnalyzer\ScintillaCustom.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="LogAnalyzer\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="LogAnalyzer\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lexers\LogLexer.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="LogAnalyzer\Lexers\LogLexer.cs" />
+    <Compile Include="LogAnalyzer\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
-    <Compile Include="utils\SysInfoParser.cs" />
-    <Compile Include="utils\Utils.cs" />
-    <Compile Include="utils\LogParser.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="LogAnalyzer\Settings.cs" />
+    <Compile Include="LogAnalyzer\utils\SysInfoParser.cs" />
+    <Compile Include="LogAnalyzer\utils\Utils.cs" />
+    <Compile Include="LogAnalyzer\utils\LogParser.cs" />
+    <EmbeddedResource Include="LogAnalyzer\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSysInfo.resx">
+    <EmbeddedResource Include="LogAnalyzer\FormSysInfo.resx">
       <DependentUpon>FormSysInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -142,21 +142,8 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Resources\errorInfo.json" />
-    <None Include="Resources\winSockErrorInfo.json" />
-    <None Include="Resources\logmein-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\open.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\open1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\close.png" />
+    <None Include="LogAnalyzer\Resources\errorInfo.json" />
+    <None Include="LogAnalyzer\Resources\winSockErrorInfo.json" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -171,11 +158,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\lmi.ico" />
-    <None Include="Resources\lowercase2.png" />
-    <None Include="Resources\lowercase1.png" />
-    <None Include="Resources\lowercase.png" />
+    <Content Include="LogAnalyzer\Resources\lmi.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

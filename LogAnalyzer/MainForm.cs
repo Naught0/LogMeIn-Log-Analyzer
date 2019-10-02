@@ -29,7 +29,7 @@ using LogAnalyzer.utils;
 
 namespace LogAnalyzer
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     { 
         // Init open/save file dialogs
         private OpenFileDialog fileDialog = new OpenFileDialog();
@@ -67,7 +67,7 @@ namespace LogAnalyzer
         public static Dictionary<string, Dictionary<string, string>> jsonErrorInfo;
         public static Dictionary<string, Dictionary<string, string>> winSockErrorInfo;
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -191,7 +191,7 @@ namespace LogAnalyzer
             winSockErrorInfo = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(Resources.winSockErrorInfo);
             
             // Add items to the checkbox
-            foreach (string line in Form1.jsonErrorInfo["LogMeIn"].Keys)
+            foreach (string line in MainForm.jsonErrorInfo["LogMeIn"].Keys)
             {
                 checkedListBoxMore.Items.Add(line);
             }
