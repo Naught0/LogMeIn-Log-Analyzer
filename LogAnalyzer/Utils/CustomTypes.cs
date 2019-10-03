@@ -10,13 +10,13 @@ namespace LogAnalyzer.utils
     {
         public class FilterList
         {
-            public List<string> items { get; set; }
-            public List<int> counts { get; set; }
+            public List<string> Items { get; set; }
+            public List<int> Counts { get; set; }
 
             public FilterList()
             {
-                items = new List<string>();
-                counts = new List<int>();
+                Items = new List<string>();
+                Counts = new List<int>();
             }
         }
     }

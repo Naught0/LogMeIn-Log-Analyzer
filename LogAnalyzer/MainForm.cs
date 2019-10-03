@@ -120,7 +120,7 @@ namespace LogAnalyzer
         /// </summary>
         private void SetFilterLabelInfo()
         {
-            labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.items.Concat(filterListRight.items))}";
+            labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.Items.Concat(filterListRight.Items))}";
         }
 
         /// <summary>
@@ -151,7 +151,27 @@ namespace LogAnalyzer
         /// </summary>
         private void SetCheckListCount()
         {
-
+            var source = fileContentsOriginal.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            foreach (string filter in filterListLeft.Items)
+            {
+                int count = 0;
+                foreach (string line in source)
+                {
+                    if (line.Contains($" {filter} "))
+                        count++;
+                }
+                filterListLeft.Counts.Add(count);
+            }
+            foreach (string filter in filterListRight.Items)
+            {
+                int count = 0;
+                foreach (string line in source)
+                {
+                    if (line.Contains($" {filter} "))
+                        count++;
+                }
+                filterListRight.Counts.Add(count);
+            }
         }
 
         /// <summary>
@@ -310,14 +330,14 @@ namespace LogAnalyzer
             string _selectedItem = checkedListBoxMain.Items[e.Index].ToString();
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
-                filterListLeft.items.Add(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft.items, filterListRight.items, fileContentsOriginal);
+                filterListLeft.Items.Add(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
-                filterListLeft.items.Remove(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft.items, filterListRight.items, fileContentsOriginal);
+                filterListLeft.Items.Remove(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();
@@ -328,14 +348,14 @@ namespace LogAnalyzer
             string _selectedItem = checkedListBoxMore.Items[e.Index].ToString();
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
-                filterListRight.items.Add(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft.items, filterListRight.items, fileContentsOriginal);
+                filterListRight.Items.Add(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
-                filterListRight.items.Remove(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft.items, filterListRight.items, fileContentsOriginal);
+                filterListRight.Items.Remove(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();
