@@ -29,6 +29,10 @@ using LogAnalyzer.utils;
 
 namespace LogAnalyzer
 {
+    // ALIASES
+    using FilterList = CustomTypes.FilterList;
+    using NestedDict = Dictionary<string, Dictionary<string, string>>;
+
     public partial class MainForm : Form
     { 
         // Init open/save file dialogs
@@ -60,12 +64,17 @@ namespace LogAnalyzer
         private string fileContentsOriginal = string.Empty;
 
         // Store filter information
-        private List<string> filterListLeft = new List<string>();
-        private List<string> filterListRight = new List<string>();
+        //private List<string> filterListLeft = new List<string>();
+        //private List<string> filterListRight = new List<string>();
+        private FilterList filterListLeft = new FilterList();
+        private FilterList filterListRight = new FilterList();
+        // This is messy and only works for Windows LogMeIn logs
+        // I should move this later
+        private List<string> logCategories = new List<string>{ "Info", "Debug", "Error", "Warning" };
 
         // Dictionary storying error / line details
-        public static Dictionary<string, Dictionary<string, string>> jsonErrorInfo;
-        public static Dictionary<string, Dictionary<string, string>> winSockErrorInfo;
+        public static NestedDict jsonErrorInfo;
+        public static NestedDict winSockErrorInfo;
 
         public MainForm()
         {
@@ -111,7 +120,7 @@ namespace LogAnalyzer
         /// </summary>
         private void SetFilterLabelInfo()
         {
-            labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.Concat(filterListRight))}";
+            labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.items.Concat(filterListRight.items))}";
         }
 
         /// <summary>
@@ -187,15 +196,15 @@ namespace LogAnalyzer
         private void Form1_Load(object sender, EventArgs e)
         {
             // Get error and logging information from JSON file
-            jsonErrorInfo = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(Resources.errorInfo);
-            winSockErrorInfo = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(Resources.winSockErrorInfo);
+            jsonErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.errorInfo);
+            winSockErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.winSockErrorInfo);
             
             // Add items to the checkbox
             foreach (string line in MainForm.jsonErrorInfo["LogMeIn"].Keys)
             {
                 checkedListBoxMore.Items.Add(line);
             }
-            foreach (string line in new string[] { "Info", "Debug", "Error", "Warning" })
+            foreach (string line in logCategories)
             {
                 checkedListBoxMain.Items.Add(line);
             }
@@ -301,14 +310,14 @@ namespace LogAnalyzer
             string _selectedItem = checkedListBoxMain.Items[e.Index].ToString();
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
-                filterListLeft.Add(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+                filterListLeft.items.Add(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft.items, filterListRight.items, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
-                filterListLeft.Remove(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+                filterListLeft.items.Remove(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft.items, filterListRight.items, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();
@@ -319,14 +328,14 @@ namespace LogAnalyzer
             string _selectedItem = checkedListBoxMore.Items[e.Index].ToString();
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
-                filterListRight.Add(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+                filterListRight.items.Add(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft.items, filterListRight.items, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
-                filterListRight.Remove(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+                filterListRight.items.Remove(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft.items, filterListRight.items, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();

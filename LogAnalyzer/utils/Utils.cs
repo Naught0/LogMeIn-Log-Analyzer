@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace LogAnalyzer
+namespace LogAnalyzer.utils
 {
     public static class Utils
     {
