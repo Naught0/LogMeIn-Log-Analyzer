@@ -4,7 +4,7 @@ using LogAnalyzer.Properties;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace LogAnalyzer.utils
+namespace LogAnalyzer
 {
     using DictInfoFormat = Dictionary<string, Dictionary<string, string>>;
     public abstract class LogParser

@@ -29,10 +29,6 @@ using LogAnalyzer.utils;
 
 namespace LogAnalyzer
 {
-    // ALIASES
-    using FilterList = CustomTypes.FilterList;
-    using NestedDict = Dictionary<string, Dictionary<string, string>>;
-
     public partial class MainForm : Form
     { 
         // Init open/save file dialogs
@@ -64,17 +60,12 @@ namespace LogAnalyzer
         private string fileContentsOriginal = string.Empty;
 
         // Store filter information
-        //private List<string> filterListLeft = new List<string>();
-        //private List<string> filterListRight = new List<string>();
-        private FilterList filterListLeft = new FilterList();
-        private FilterList filterListRight = new FilterList();
-        // This is messy and only works for Windows LogMeIn logs
-        // I should move this later
-        private List<string> logCategories = new List<string>{ "Info", "Debug", "Error", "Warning" };
+        private List<string> filterListLeft = new List<string>();
+        private List<string> filterListRight = new List<string>();
 
         // Dictionary storying error / line details
-        public static NestedDict jsonErrorInfo;
-        public static NestedDict winSockErrorInfo;
+        public static Dictionary<string, Dictionary<string, string>> jsonErrorInfo;
+        public static Dictionary<string, Dictionary<string, string>> winSockErrorInfo;
 
         public MainForm()
         {
@@ -120,7 +111,11 @@ namespace LogAnalyzer
         /// </summary>
         private void SetFilterLabelInfo()
         {
+<<<<<<< HEAD
             labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.Items.Concat(filterListRight.Items))}";
+=======
+            labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.Concat(filterListRight))}";
+>>>>>>> parent of 6ce6431... fix some scoping
         }
 
         /// <summary>
@@ -216,15 +211,15 @@ namespace LogAnalyzer
         private void Form1_Load(object sender, EventArgs e)
         {
             // Get error and logging information from JSON file
-            jsonErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.errorInfo);
-            winSockErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.winSockErrorInfo);
+            jsonErrorInfo = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(Resources.errorInfo);
+            winSockErrorInfo = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(Resources.winSockErrorInfo);
             
             // Add items to the checkbox
             foreach (string line in MainForm.jsonErrorInfo["LogMeIn"].Keys)
             {
                 checkedListBoxMore.Items.Add(line);
             }
-            foreach (string line in logCategories)
+            foreach (string line in new string[] { "Info", "Debug", "Error", "Warning" })
             {
                 checkedListBoxMain.Items.Add(line);
             }
@@ -330,14 +325,24 @@ namespace LogAnalyzer
             string _selectedItem = checkedListBoxMain.Items[e.Index].ToString();
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
+<<<<<<< HEAD
                 filterListLeft.Items.Add(_selectedItem);
                 string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
+=======
+                filterListLeft.Add(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+>>>>>>> parent of 6ce6431... fix some scoping
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
+<<<<<<< HEAD
                 filterListLeft.Items.Remove(_selectedItem);
                 string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
+=======
+                filterListLeft.Remove(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+>>>>>>> parent of 6ce6431... fix some scoping
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();
@@ -348,14 +353,24 @@ namespace LogAnalyzer
             string _selectedItem = checkedListBoxMore.Items[e.Index].ToString();
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
+<<<<<<< HEAD
                 filterListRight.Items.Add(_selectedItem);
                 string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
+=======
+                filterListRight.Add(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+>>>>>>> parent of 6ce6431... fix some scoping
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
+<<<<<<< HEAD
                 filterListRight.Items.Remove(_selectedItem);
                 string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
+=======
+                filterListRight.Remove(_selectedItem);
+                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
+>>>>>>> parent of 6ce6431... fix some scoping
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();

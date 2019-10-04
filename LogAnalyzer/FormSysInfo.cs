@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using LogAnalyzer.utils;
 
 namespace LogAnalyzer
@@ -32,7 +31,7 @@ namespace LogAnalyzer
 
         private void ButtonClose_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
         }
     }
 }
