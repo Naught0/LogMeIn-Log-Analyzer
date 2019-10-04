@@ -95,7 +95,7 @@
             this.fontToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.fontToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.fontToolStripMenuItem.Text = "Font";
             this.fontToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.fontToolStripMenuItem.Click += new System.EventHandler(this.FontToolStripMenuItem_Click);
@@ -105,7 +105,7 @@
             this.openToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.openToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -114,7 +114,7 @@
             this.exitToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.exitToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -133,7 +133,7 @@
             this.resetFiltersToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.resetFiltersToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
             this.resetFiltersToolStripMenuItem1.Name = "resetFiltersToolStripMenuItem1";
-            this.resetFiltersToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.resetFiltersToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
             this.resetFiltersToolStripMenuItem1.Text = "Reset Filters";
             this.resetFiltersToolStripMenuItem1.Click += new System.EventHandler(this.ResetFiltersToolStripMenuItem1_Click);
             // 
@@ -151,7 +151,7 @@
             this.systemInfoToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.systemInfoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.systemInfoToolStripMenuItem.Name = "systemInfoToolStripMenuItem";
-            this.systemInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.systemInfoToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.systemInfoToolStripMenuItem.Text = "System Info";
             this.systemInfoToolStripMenuItem.Click += new System.EventHandler(this.SystemInfoToolStripMenuItem_Click);
             // 
@@ -206,7 +206,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.scintillaCustom1);
             this.splitContainer1.Size = new System.Drawing.Size(1038, 477);
-            this.splitContainer1.SplitterDistance = 264;
+            this.splitContainer1.SplitterDistance = 331;
             this.splitContainer1.TabIndex = 3;
             // 
             // splitContainer2
@@ -223,7 +223,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.richTextBoxInfo);
-            this.splitContainer2.Size = new System.Drawing.Size(264, 477);
+            this.splitContainer2.Size = new System.Drawing.Size(331, 477);
             this.splitContainer2.SplitterDistance = 190;
             this.splitContainer2.TabIndex = 2;
             // 
@@ -240,8 +240,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.checkedListBoxMore);
-            this.splitContainer3.Size = new System.Drawing.Size(264, 190);
-            this.splitContainer3.SplitterDistance = 94;
+            this.splitContainer3.Size = new System.Drawing.Size(331, 190);
+            this.splitContainer3.SplitterDistance = 117;
             this.splitContainer3.TabIndex = 1;
             // 
             // checkedListBoxMain
@@ -255,7 +255,7 @@
             this.checkedListBoxMain.FormattingEnabled = true;
             this.checkedListBoxMain.Location = new System.Drawing.Point(0, 0);
             this.checkedListBoxMain.Name = "checkedListBoxMain";
-            this.checkedListBoxMain.Size = new System.Drawing.Size(94, 190);
+            this.checkedListBoxMain.Size = new System.Drawing.Size(117, 190);
             this.checkedListBoxMain.Sorted = true;
             this.checkedListBoxMain.TabIndex = 0;
             this.checkedListBoxMain.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CheckedListBoxMain_ItemCheck);
@@ -271,7 +271,7 @@
             this.checkedListBoxMore.FormattingEnabled = true;
             this.checkedListBoxMore.Location = new System.Drawing.Point(0, 0);
             this.checkedListBoxMore.Name = "checkedListBoxMore";
-            this.checkedListBoxMore.Size = new System.Drawing.Size(166, 190);
+            this.checkedListBoxMore.Size = new System.Drawing.Size(210, 190);
             this.checkedListBoxMore.Sorted = true;
             this.checkedListBoxMore.TabIndex = 0;
             this.checkedListBoxMore.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CheckedListBoxMore_ItemCheck);
@@ -287,7 +287,7 @@
             this.richTextBoxInfo.Name = "richTextBoxInfo";
             this.richTextBoxInfo.ReadOnly = true;
             this.richTextBoxInfo.ShortcutsEnabled = false;
-            this.richTextBoxInfo.Size = new System.Drawing.Size(264, 283);
+            this.richTextBoxInfo.Size = new System.Drawing.Size(331, 283);
             this.richTextBoxInfo.TabIndex = 1;
             this.richTextBoxInfo.Text = "";
             // 
@@ -303,7 +303,7 @@
             this.scintillaCustom1.Location = new System.Drawing.Point(0, 0);
             this.scintillaCustom1.Name = "scintillaCustom1";
             this.scintillaCustom1.ReadOnly = true;
-            this.scintillaCustom1.Size = new System.Drawing.Size(770, 477);
+            this.scintillaCustom1.Size = new System.Drawing.Size(703, 477);
             this.scintillaCustom1.TabIndex = 1;
             this.scintillaCustom1.WrapMode = ScintillaNET.WrapMode.Whitespace;
             this.scintillaCustom1.TextChanged += new System.EventHandler(this.ScintillaCustom1_TextChanged);
@@ -317,6 +317,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;

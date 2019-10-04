@@ -29,6 +29,9 @@ using LogAnalyzer.utils;
 
 namespace LogAnalyzer
 {
+    // Aliases
+    using NestedDict = Dictionary<string, Dictionary<string, string>>;
+
     public partial class MainForm : Form
     { 
         // Init open/save file dialogs
@@ -64,8 +67,9 @@ namespace LogAnalyzer
         private List<string> filterListRight = new List<string>();
 
         // Dictionary storying error / line details
-        public static Dictionary<string, Dictionary<string, string>> jsonErrorInfo;
-        public static Dictionary<string, Dictionary<string, string>> winSockErrorInfo;
+        public static NestedDict jsonErrorInfo;
+        public static NestedDict winSockErrorInfo;
+        public static List<string> logEntryTypes = new List<string>{ "Info", "Debug", "Error", "Warning" };
 
         public MainForm()
         {
@@ -96,6 +100,25 @@ namespace LogAnalyzer
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+
+            // Redraw the filters
+            List<string> splitFileContents = fileContentsOriginal.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+
+            checkedListBoxMore.Items.Clear();
+            foreach (string item in jsonErrorInfo["LogMeIn"].Keys)
+            {
+                string toAdd = CountMatches(item, splitFileContents);
+                if (toAdd != string.Empty)
+                    checkedListBoxMore.Items.Add(CountMatches(item, splitFileContents));
+            }
+
+            checkedListBoxMain.Items.Clear();
+            foreach (string item in logEntryTypes)
+            {
+                string toAdd = CountMatches(item, splitFileContents);
+                if (toAdd != string.Empty)
+                    checkedListBoxMain.Items.Add(CountMatches(item, splitFileContents));
             }
         }
 
@@ -135,14 +158,26 @@ namespace LogAnalyzer
             Settings.Default.RecentlyOpened = recentlyOpenedFiles;
             Settings.Default.Save();
         }
-        
         /// <summary>
-        /// Automatically puts in parens the # of matches per filter
-        /// In the checkedListBox filter lists
+        /// Counts matches of a string in a given List<string>
         /// </summary>
-        private void SetCheckListCount()
+        /// <param name="toMatch"></param>
+        /// <param name="data"></param>
+        /// <returns>"{toMatch} {(count)}"</returns>
+        private string CountMatches(string toMatch, List<string> data)
         {
-
+            int c = 0;
+            foreach (string line in data)
+            {
+                if (line.Contains($" {toMatch} "))
+                {
+                    c++;
+                }
+            }
+            if (c != 0)
+                return $"{toMatch} ({c})";
+            else
+                return string.Empty;
         }
 
         /// <summary>
@@ -161,7 +196,7 @@ namespace LogAnalyzer
         private void SetLabelInfo()
         {
             toolStripStatusLabelInfo.Text = 
-                $"L: {Regex.Matches(scintillaCustom1.Text, Environment.NewLine).Count} W: {scintillaCustom1.Text.Split(' ').Length:n0} C: {scintillaCustom1.Text.Length:n0}";
+                $"L: {scintillaCustom1.Text.Count(f => f == '\n')} W: {scintillaCustom1.Text.Split(' ').Length:n0} C: {scintillaCustom1.Text.Length:n0}";
         }
         
         /// <summary>
@@ -187,15 +222,15 @@ namespace LogAnalyzer
         private void Form1_Load(object sender, EventArgs e)
         {
             // Get error and logging information from JSON file
-            jsonErrorInfo = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(Resources.errorInfo);
-            winSockErrorInfo = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(Resources.winSockErrorInfo);
+            jsonErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.errorInfo);
+            winSockErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.winSockErrorInfo);
             
             // Add items to the checkbox
-            foreach (string line in MainForm.jsonErrorInfo["LogMeIn"].Keys)
+            foreach (string line in jsonErrorInfo["LogMeIn"].Keys)
             {
                 checkedListBoxMore.Items.Add(line);
             }
-            foreach (string line in new string[] { "Info", "Debug", "Error", "Warning" })
+            foreach (string line in logEntryTypes)
             {
                 checkedListBoxMain.Items.Add(line);
             }
@@ -223,7 +258,7 @@ namespace LogAnalyzer
             if (MessageBox.Show("Are you sure?", "Close Window", MessageBoxButtons.YesNo)
                     == DialogResult.Yes)
             {
-                this.Close();
+                Close();
             }
         }
 
@@ -235,7 +270,8 @@ namespace LogAnalyzer
         /// <param name="e"></param>
         private void ScintillaCustom1_TextChanged(object sender, EventArgs e)
         {
-            SetLabelInfo();
+            // Don't do this until I can fix the linecount
+            //SetLabelInfo();
         }
 
         /// <summary>
@@ -298,7 +334,10 @@ namespace LogAnalyzer
         /// <param name="e"></param>
         private void CheckedListBoxMain_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            string _selectedItem = checkedListBoxMain.Items[e.Index].ToString();
+            // Could I possibly think of a worse way to do this?
+            // Probably, but it works and that's good enough for me right now
+            string _selectedItem = checkedListBoxMain.Items[e.Index].ToString().Split('(')[0].TrimEnd(new char[] { ' ' });
+
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
                 filterListLeft.Add(_selectedItem);
@@ -316,7 +355,9 @@ namespace LogAnalyzer
 
         private void CheckedListBoxMore_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            string _selectedItem = checkedListBoxMore.Items[e.Index].ToString();
+            // goto line:336
+            string _selectedItem = checkedListBoxMore.Items[e.Index].ToString().Split('(')[0].TrimEnd(new char[] { ' ' });
+
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
                 filterListRight.Add(_selectedItem);
@@ -343,8 +384,10 @@ namespace LogAnalyzer
 
         private void SystemInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form sysInfo = new FormSystemInfo(fileContentsOriginal);
-            sysInfo.Show();
+            using (Form sysInfo = new FormSystemInfo(fileContentsOriginal))
+            {
+                sysInfo.ShowDialog();
+            }
         }
     }
 }
