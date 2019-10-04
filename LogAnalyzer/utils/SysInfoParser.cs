@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LogAnalyzer.utils;
 
 namespace LogAnalyzer.utils
 {
@@ -14,7 +15,7 @@ namespace LogAnalyzer.utils
         /// But I don't know that parsing text is ever not hideous
         /// But here we are
         /// 
-        /// The Monitor parsing doesn't work *yet*, and I'm trying to modularize this at some point
+        /// The Monitor parsing doesn't work yet and I'm trying to modularize this at some point
         /// </summary>
         private static class ParseBy
         {
@@ -94,12 +95,8 @@ namespace LogAnalyzer.utils
             foreach (string match in filteredMatches)
             {
                 List<string> parsedList = ParseDisplayString(match);
-                string _ = $"Adapater: {parsedList[0]}\nResolution: {parsedList[1]}";
-                _l.Add(_);
-                builder.AppendLine(_);
+                builder.AppendLine($"Adapater: {parsedList[0]}\nResolution: {parsedList[1]}");
             }
-            if (_l.IsEmpty())
-                builder.AppendLine("No data available.");
 
             return builder.ToString();
         }

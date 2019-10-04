@@ -111,11 +111,7 @@ namespace LogAnalyzer
         /// </summary>
         private void SetFilterLabelInfo()
         {
-<<<<<<< HEAD
-            labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.Items.Concat(filterListRight.Items))}";
-=======
             labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.Concat(filterListRight))}";
->>>>>>> parent of 6ce6431... fix some scoping
         }
 
         /// <summary>
@@ -146,27 +142,7 @@ namespace LogAnalyzer
         /// </summary>
         private void SetCheckListCount()
         {
-            var source = fileContentsOriginal.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-            foreach (string filter in filterListLeft.Items)
-            {
-                int count = 0;
-                foreach (string line in source)
-                {
-                    if (line.Contains($" {filter} "))
-                        count++;
-                }
-                filterListLeft.Counts.Add(count);
-            }
-            foreach (string filter in filterListRight.Items)
-            {
-                int count = 0;
-                foreach (string line in source)
-                {
-                    if (line.Contains($" {filter} "))
-                        count++;
-                }
-                filterListRight.Counts.Add(count);
-            }
+
         }
 
         /// <summary>
@@ -325,24 +301,14 @@ namespace LogAnalyzer
             string _selectedItem = checkedListBoxMain.Items[e.Index].ToString();
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
-<<<<<<< HEAD
-                filterListLeft.Items.Add(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
-=======
                 filterListLeft.Add(_selectedItem);
                 string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
->>>>>>> parent of 6ce6431... fix some scoping
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
-<<<<<<< HEAD
-                filterListLeft.Items.Remove(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
-=======
                 filterListLeft.Remove(_selectedItem);
                 string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
->>>>>>> parent of 6ce6431... fix some scoping
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();
@@ -353,24 +319,14 @@ namespace LogAnalyzer
             string _selectedItem = checkedListBoxMore.Items[e.Index].ToString();
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
-<<<<<<< HEAD
-                filterListRight.Items.Add(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
-=======
                 filterListRight.Add(_selectedItem);
                 string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
->>>>>>> parent of 6ce6431... fix some scoping
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
-<<<<<<< HEAD
-                filterListRight.Items.Remove(_selectedItem);
-                string _newText = Utils.FilterText(filterListLeft.Items, filterListRight.Items, fileContentsOriginal);
-=======
                 filterListRight.Remove(_selectedItem);
                 string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
->>>>>>> parent of 6ce6431... fix some scoping
                 SetScintillaText(_newText);
             }
             SetFilterLabelInfo();
