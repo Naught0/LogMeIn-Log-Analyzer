@@ -31,6 +31,7 @@ namespace LogAnalyzer
 {
     // Aliases
     using NestedDict = Dictionary<string, Dictionary<string, string>>;
+    using CheckListItem = Types.CheckListItem<string>;
 
     public partial class MainForm : Form
     { 
@@ -66,7 +67,7 @@ namespace LogAnalyzer
         private List<string> filterListLeft = new List<string>();
         private List<string> filterListRight = new List<string>();
 
-        // Dictionary storying error / line details
+        // Dictionary storing errors / line details
         public static NestedDict jsonErrorInfo;
         public static NestedDict winSockErrorInfo;
         public static List<string> logEntryTypes = new List<string>{ "Info", "Debug", "Error", "Warning" };
@@ -74,6 +75,26 @@ namespace LogAnalyzer
         public MainForm()
         {
             InitializeComponent();
+
+            // Get error and logging information from JSON file
+            jsonErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.errorInfo);
+            winSockErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.winSockErrorInfo);
+
+            //checkedListBoxMain.DataSource = new List<CheckListItem>();
+            //checkedListBoxMore.DataSource = new List<CheckListItem>();
+            
+            // Add items to the checkbox
+            foreach (string line in jsonErrorInfo["LogMeIn"].Keys)
+            {
+                checkedListBoxMore.Items.Add(new CheckListItem(line, line));
+            }
+            foreach (string line in logEntryTypes)
+            {
+                checkedListBoxMain.Items.Add(new CheckListItem(line, line));
+            }
+
+            // Set the font to custom user font if it exists
+            SetScintillaFont();
         }
 
         // 
@@ -108,16 +129,16 @@ namespace LogAnalyzer
             checkedListBoxMore.Items.Clear();
             foreach (string item in jsonErrorInfo["LogMeIn"].Keys)
             {
-                string toAdd = CountMatches(item, splitFileContents);
-                if (toAdd != string.Empty)
+                CheckListItem toAdd = CountMatches(item, splitFileContents);
+                if (toAdd.Display != string.Empty)
                     checkedListBoxMore.Items.Add(CountMatches(item, splitFileContents));
             }
 
             checkedListBoxMain.Items.Clear();
             foreach (string item in logEntryTypes)
             {
-                string toAdd = CountMatches(item, splitFileContents);
-                if (toAdd != string.Empty)
+                CheckListItem toAdd = CountMatches(item, splitFileContents);
+                if (toAdd.Display != string.Empty)
                     checkedListBoxMain.Items.Add(CountMatches(item, splitFileContents));
             }
         }
@@ -164,7 +185,7 @@ namespace LogAnalyzer
         /// <param name="toMatch"></param>
         /// <param name="data"></param>
         /// <returns>"{toMatch} {(count)}"</returns>
-        private string CountMatches(string toMatch, List<string> data)
+        private CheckListItem CountMatches(string toMatch, List<string> data)
         {
             int c = 0;
             foreach (string line in data)
@@ -175,10 +196,9 @@ namespace LogAnalyzer
                 }
             }
             if (c != 0)
-                return $"{toMatch} ({c})";
+                return new CheckListItem($"{toMatch} ({c})", toMatch);
             else
-                return string.Empty;
-        }
+                return new CheckListItem(string.Empty, string.Empty);        }
 
         /// <summary>
         /// Parses currently selected line and display helpful information (sometimes) 
@@ -214,31 +234,6 @@ namespace LogAnalyzer
         // Event definitions and actions
         // *****************************
         
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            // Get error and logging information from JSON file
-            jsonErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.errorInfo);
-            winSockErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.winSockErrorInfo);
-            
-            // Add items to the checkbox
-            foreach (string line in jsonErrorInfo["LogMeIn"].Keys)
-            {
-                checkedListBoxMore.Items.Add(line);
-            }
-            foreach (string line in logEntryTypes)
-            {
-                checkedListBoxMain.Items.Add(line);
-            }
-
-            // Set the font to custom user font if it exists
-            SetScintillaFont();
-        }
-
         /// <summary>
         /// Handles the "Open" button click event to open a file
         /// </summary>
@@ -334,19 +329,19 @@ namespace LogAnalyzer
         /// <param name="e"></param>
         private void CheckedListBoxMain_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            // Could I possibly think of a worse way to do this?
-            // Probably, but it works and that's good enough for me right now
-            string _selectedItem = checkedListBoxMain.Items[e.Index].ToString().Split('(')[0].TrimEnd(new char[] { ' ' });
+            var _selectedItem = checkedListBoxMain.Items[e.Index] as CheckListItem;
 
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
-                filterListLeft.Add(_selectedItem);
+                filterListLeft.Add(_selectedItem.Data);
+
+                // Using Linq here because it's neat
                 string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
-                filterListLeft.Remove(_selectedItem);
+                filterListLeft.Remove(_selectedItem.Data);
                 string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
@@ -355,18 +350,17 @@ namespace LogAnalyzer
 
         private void CheckedListBoxMore_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            // goto line:336
-            string _selectedItem = checkedListBoxMore.Items[e.Index].ToString().Split('(')[0].TrimEnd(new char[] { ' ' });
+            var _selectedItem = checkedListBoxMore.Items[e.Index] as CheckListItem;
 
             if (e.CurrentValue == CheckState.Unchecked && e.NewValue == CheckState.Checked)
             {
-                filterListRight.Add(_selectedItem);
+                filterListRight.Add(_selectedItem.Data);
                 string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
-                filterListRight.Remove(_selectedItem);
+                filterListRight.Remove(_selectedItem.Data);
                 string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
                 SetScintillaText(_newText);
             }
