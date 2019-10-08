@@ -34,7 +34,7 @@ namespace LogAnalyzer
         /// <summary>
         /// Defines what appears in the right click menu in Scintilla
         /// </summary>
-        private void initContextMenu()
+        void initContextMenu()
         {
             ContextMenu cm = ContextMenu = new ContextMenu();
 

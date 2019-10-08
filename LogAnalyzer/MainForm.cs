@@ -36,8 +36,8 @@ namespace LogAnalyzer
     public partial class MainForm : Form
     { 
         // Init open/save file dialogs
-        private OpenFileDialog fileDialog = new OpenFileDialog();
-        private FontDialog font = new FontDialog
+        OpenFileDialog fileDialog = new OpenFileDialog();
+        FontDialog font = new FontDialog
         {
             FixedPitchOnly = true,
             ShowHelp = false,
@@ -49,23 +49,23 @@ namespace LogAnalyzer
         };
 
         // Default font stored in Settings
-        private Font userFont = Settings.Default.Font;
+        Font userFont = Settings.Default.Font;
 
         // TODO: Probably should utilize this at some point or something
-        private StringCollection recentlyOpenedFiles;
+        StringCollection recentlyOpenedFiles;
 
         // Parser
         // TODO: Don't instantiate unless LMI detected
         // Perhaps via a detect() method on something...
-        private ParserLMI parserLMI = new ParserLMI();
+        ParserLMI parserLMI = new ParserLMI();
         
         // Init file information
-        private string fileNameOpen = string.Empty;
-        private string fileContentsOriginal = string.Empty;
+        string fileNameOpen = string.Empty;
+        string fileContentsOriginal = string.Empty;
 
         // Store filter information
-        private List<string> filterListLeft = new List<string>();
-        private List<string> filterListRight = new List<string>();
+        List<string> filterListLeft = new List<string>();
+        List<string> filterListRight = new List<string>();
 
         // Dictionary storing errors / line details
         public static NestedDict jsonErrorInfo;
@@ -104,7 +104,7 @@ namespace LogAnalyzer
         /// <summary>
         /// Opens a file, displays it, and updates file information
         /// </summary>
-        private void OpenFile()
+        void OpenFile()
         {
             try
             {
@@ -143,7 +143,7 @@ namespace LogAnalyzer
             }
         }
 
-        private void SetScintillaFont()
+        void SetScintillaFont()
         {
             scintillaCustom1.font = userFont;
             scintillaCustom1.setStyle();
@@ -153,7 +153,7 @@ namespace LogAnalyzer
         /// <summary>
         /// Sets label above Scintilla text box to indicate what filters are selected
         /// </summary>
-        private void SetFilterLabelInfo()
+        void SetFilterLabelInfo()
         {
             labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.Concat(filterListRight))}";
         }
@@ -162,7 +162,7 @@ namespace LogAnalyzer
         /// Highlight keywords in current document
         /// </summary>
         /// <param name="text"></param>
-        private void HighlightWords(string text)
+        void HighlightWords(string text)
         {
             const int NUM = 8;
 
@@ -185,7 +185,7 @@ namespace LogAnalyzer
         /// <param name="toMatch"></param>
         /// <param name="data"></param>
         /// <returns>"{toMatch} {(count)}"</returns>
-        private CheckListItem CountMatches(string toMatch, List<string> data)
+        CheckListItem CountMatches(string toMatch, List<string> data)
         {
             int c = 0;
             foreach (string line in data)
@@ -205,7 +205,7 @@ namespace LogAnalyzer
         /// In the RichTextBox on the left pane
         /// </summary>
         /// <param name="currentLine">Currently selected Scintilla line</param>
-        private void SetInfoBoxInfo(string currentLine)
+        void SetInfoBoxInfo(string currentLine)
         {
             richTextBoxInfo.Text = parserLMI.ParseLine(currentLine);   
         }
@@ -213,7 +213,7 @@ namespace LogAnalyzer
         /// <summary>
         /// Sets the statusbar text at the bottom of the window
         /// </summary>
-        private void SetLabelInfo()
+        void SetLabelInfo()
         {
             toolStripStatusLabelInfo.Text = 
                 $"L: {scintillaCustom1.Text.Count(f => f == '\n')} W: {scintillaCustom1.Text.Split(' ').Length:n0} C: {scintillaCustom1.Text.Length:n0}";
@@ -223,7 +223,7 @@ namespace LogAnalyzer
         /// Unsets Scintilla's ReadOnly status, sets the text to a new string, and re-enables ReadOnly
         /// </summary>
         /// <param name="s">Text to set</param>
-        private void SetScintillaText(string s)
+        void SetScintillaText(string s)
         {
             scintillaCustom1.ReadOnly = false;
             scintillaCustom1.Text = s;
@@ -239,7 +239,7 @@ namespace LogAnalyzer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFile();
         }
@@ -248,7 +248,7 @@ namespace LogAnalyzer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure?", "Close Window", MessageBoxButtons.YesNo)
                     == DialogResult.Yes)
@@ -263,7 +263,7 @@ namespace LogAnalyzer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ScintillaCustom1_TextChanged(object sender, EventArgs e)
+        void ScintillaCustom1_TextChanged(object sender, EventArgs e)
         {
             // Don't do this until I can fix the linecount
             //SetLabelInfo();
@@ -276,7 +276,7 @@ namespace LogAnalyzer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ScintillaCustom1_Click(object sender, EventArgs e)
+        void ScintillaCustom1_Click(object sender, EventArgs e)
         {
             richTextBoxInfo.Text = string.Empty;
             int _currentLine = scintillaCustom1.CurrentLine;
@@ -290,7 +290,7 @@ namespace LogAnalyzer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void FontToolStripMenuItem_Click(object sender, EventArgs e)
+        void FontToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (font.ShowDialog() == DialogResult.OK)
             {
@@ -306,7 +306,7 @@ namespace LogAnalyzer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ResetFiltersToolStripMenuItem1_Click(object sender, EventArgs e)
+        void ResetFiltersToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             SetScintillaText(fileContentsOriginal);
 
@@ -327,7 +327,7 @@ namespace LogAnalyzer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CheckedListBoxMain_ItemCheck(object sender, ItemCheckEventArgs e)
+        void CheckedListBoxMain_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             var _selectedItem = checkedListBoxMain.Items[e.Index] as CheckListItem;
 
@@ -348,7 +348,7 @@ namespace LogAnalyzer
             SetFilterLabelInfo();
         }
 
-        private void CheckedListBoxMore_ItemCheck(object sender, ItemCheckEventArgs e)
+        void CheckedListBoxMore_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             var _selectedItem = checkedListBoxMore.Items[e.Index] as CheckListItem;
 
@@ -367,7 +367,7 @@ namespace LogAnalyzer
             SetFilterLabelInfo();
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             // Ctrl + o Open
             if (e.Control && e.KeyCode == Keys.O)
@@ -376,7 +376,7 @@ namespace LogAnalyzer
             }
         }
 
-        private void SystemInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        void SystemInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (Form sysInfo = new FormSystemInfo(fileContentsOriginal))
             {

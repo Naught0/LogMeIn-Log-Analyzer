@@ -19,7 +19,7 @@ namespace LogAnalyzer.utils
         public readonly DictInfoFormat socketErrorInfo = 
             JsonConvert.DeserializeObject<DictInfoFormat>(Resources.winSockErrorInfo);
 
-        private const string STR_NO_MATCH = @"¯\_( ͠° ͟ʖ °͠ )_/¯";
+        const string STR_NO_MATCH = @"¯\_( ͠° ͟ʖ °͠ )_/¯";
 
         // PATCH MANAGEMENT
         // https://www.catalog.update.microsoft.com/ScopedViewGeneric.aspx?updateid={}

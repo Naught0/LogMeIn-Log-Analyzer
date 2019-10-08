@@ -17,14 +17,14 @@ namespace LogAnalyzer.utils
         /// 
         /// The Monitor parsing doesn't work yet and I'm trying to modularize this at some point
         /// </summary>
-        private static class ParseBy
+        static class ParseBy
         {
             public static string OS = "Main - Runtime OS version";
             public static string LMI = "Main - LogMeIn version";
             public static string Display = "MonitorInfo - Monitor found";
             public static string AV = "AVDetection - Found new anti-virus";
         }
-        private string logFile = string.Empty;
+        string logFile = string.Empty;
 
         public SysInfoParser(string passedLog)
         {
@@ -107,7 +107,7 @@ namespace LogAnalyzer.utils
         /// <param name="matchString"></param>
         /// <param name="logLines"></param>
         /// <returns></returns>
-        private List<string> GetMatches(String matchString, List<string> logLines)
+        List<string> GetMatches(String matchString, List<string> logLines)
         {
             // Create list of matching queries
             List<string> matchList = new List<string>();
@@ -123,7 +123,7 @@ namespace LogAnalyzer.utils
             return matchList;
         }
 
-        private HashSet<string> GetDisplayList(List<string> matchList)
+        HashSet<string> GetDisplayList(List<string> matchList)
         {
             List<string> l = new List<string>();
             foreach (string item in matchList)
@@ -135,7 +135,7 @@ namespace LogAnalyzer.utils
             return new HashSet<string>(l);
         }
 
-        private List<string> ParseDisplayString(string line)
+        List<string> ParseDisplayString(string line)
         {
             //var regRemove = new Regex(@"\((.)\)");
             var reg = new Regex(@"\(([^)]*)\)");
