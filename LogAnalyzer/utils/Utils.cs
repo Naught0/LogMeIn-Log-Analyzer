@@ -13,7 +13,7 @@ namespace LogAnalyzer.utils
         /// <param name="filterByRight"></param>
         /// <param name="toFilter"></param>
         /// <returns></returns>
-        public static string FilterText(List<string> filterByLeft, List<string>filterByRight, string toFilter)
+        public static string FilterText(List<string> filterByLeft, List<string> filterByRight, string toFilter)
         {
             // No filters passed, return full text
             if (filterByLeft.IsEmpty() && filterByRight.IsEmpty())
