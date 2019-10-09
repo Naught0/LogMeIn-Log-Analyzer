@@ -80,9 +80,6 @@ namespace LogAnalyzer
             jsonErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.errorInfo);
             winSockErrorInfo = JsonConvert.DeserializeObject<NestedDict>(Resources.winSockErrorInfo);
 
-            //checkedListBoxMain.DataSource = new List<CheckListItem>();
-            //checkedListBoxMore.DataSource = new List<CheckListItem>();
-            
             // Add items to the checkbox
             foreach (string line in jsonErrorInfo["LogMeIn"].Keys)
             {

@@ -107,7 +107,7 @@ namespace LogAnalyzer.utils
         /// <param name="matchString"></param>
         /// <param name="logLines"></param>
         /// <returns></returns>
-        List<string> GetMatches(String matchString, List<string> logLines)
+        List<string> GetMatches(string matchString, List<string> logLines)
         {
             // Create list of matching queries
             List<string> matchList = new List<string>();
