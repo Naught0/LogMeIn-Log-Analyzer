@@ -131,7 +131,7 @@ namespace LogAnalyzer
             {
                 CheckListItem toAdd = CountMatches(item, splitFileContents);
                 if (toAdd.Display != string.Empty)
-                    checkedListBoxMore.Items.Add(CountMatches(item, splitFileContents));
+                    checkedListBoxMore.Items.Add(toAdd);
             }
 
             checkedListBoxMain.Items.Clear();
@@ -139,7 +139,7 @@ namespace LogAnalyzer
             {
                 CheckListItem toAdd = CountMatches(item, splitFileContents);
                 if (toAdd.Display != string.Empty)
-                    checkedListBoxMain.Items.Add(CountMatches(item, splitFileContents));
+                    checkedListBoxMain.Items.Add(toAdd);
             }
         }
 
@@ -216,7 +216,7 @@ namespace LogAnalyzer
         private void SetLabelInfo()
         {
             toolStripStatusLabelInfo.Text = 
-                $"L: {scintillaCustom1.Text.Count(f => f == '\n')} W: {scintillaCustom1.Text.Split(' ').Length:n0} C: {scintillaCustom1.Text.Length:n0}";
+                $"L: {scintillaCustom1.Text.Count(f => f == '\n'):n0} W: {scintillaCustom1.Text.Split(' ').Length:n0} C: {scintillaCustom1.Text.Length:n0}";
         }
         
         /// <summary>
@@ -336,14 +336,13 @@ namespace LogAnalyzer
                 filterListLeft.Add(_selectedItem.Data);
 
                 // Using Linq here because it's neat
-                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
-                SetScintillaText(_newText);
+                SetScintillaText(Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal));
             }
             else if (e.CurrentValue == CheckState.Checked && e.NewValue == CheckState.Unchecked)
             {
                 filterListLeft.Remove(_selectedItem.Data);
-                string _newText = Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal);
-                SetScintillaText(_newText);
+               
+                SetScintillaText(Utils.FilterText(filterListLeft, filterListRight, fileContentsOriginal));
             }
             SetFilterLabelInfo();
         }
@@ -382,6 +381,16 @@ namespace LogAnalyzer
             {
                 sysInfo.ShowDialog();
             }
+        }
+
+        private void CheckedListBoxMain_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            e.Control.Dispose();
+        }
+
+        private void CheckedListBoxMore_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            e.Control.Dispose();
         }
     }
 }
