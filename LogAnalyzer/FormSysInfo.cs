@@ -20,7 +20,7 @@ namespace LogAnalyzer
             InitializeComponent();
         }
 
-        private void FormSystemInfo_Load(object sender, EventArgs e)
+        void FormSystemInfo_Load(object sender, EventArgs e)
         {
             SysInfoParser parser = new SysInfoParser(logFile);
             string parsedText = parser.GetSysInfo();
@@ -29,7 +29,7 @@ namespace LogAnalyzer
             rtfInfo.ReadOnly = true;
         }
 
-        private void ButtonClose_Click(object sender, EventArgs e)
+        void ButtonClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }

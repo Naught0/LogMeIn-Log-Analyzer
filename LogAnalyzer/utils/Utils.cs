@@ -45,7 +45,7 @@ namespace LogAnalyzer.utils
         /// <param name="filterBy"></param>
         /// <param name="toFilter"></param>
         /// <returns></returns>
-        private static string FilterOne(List<string> filterBy, string toFilter)
+        static string FilterOne(List<string> filterBy, string toFilter)
         {
             StringBuilder builder = new StringBuilder();
             foreach (string line in toFilter.Split('\n'))

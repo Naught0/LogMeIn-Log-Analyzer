@@ -19,12 +19,12 @@ namespace LogAnalyzer.Lexers
         public const int StyleNumber = 3;
         public const int StyleString = 4;
 
-        private const int STATE_UNKNOWN = 0;
-        private const int STATE_IDENTIFIER = 1;
-        private const int STATE_NUMBER = 2;
-        private const int STATE_STRING = 3;
+        const int STATE_UNKNOWN = 0;
+        const int STATE_IDENTIFIER = 1;
+        const int STATE_NUMBER = 2;
+        const int STATE_STRING = 3;
 
-        private HashSet<string> keywords;
+        HashSet<string> keywords;
 
         public void Style(Scintilla scintilla, int startPos, int endPos)
         {
