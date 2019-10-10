@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetFiltersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +48,8 @@
             this.checkedListBoxMore = new System.Windows.Forms.CheckedListBox();
             this.richTextBoxInfo = new System.Windows.Forms.RichTextBox();
             this.scintillaCustom1 = new LogAnalyzer.ScintillaCustom();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -71,6 +72,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
             this.resetFiltersToolStripMenuItem,
             this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -82,7 +84,6 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fontToolStripMenuItem,
             this.openToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
@@ -90,22 +91,12 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // fontToolStripMenuItem
-            // 
-            this.fontToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
-            this.fontToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
-            this.fontToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.fontToolStripMenuItem.Text = "Font";
-            this.fontToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.fontToolStripMenuItem.Click += new System.EventHandler(this.FontToolStripMenuItem_Click);
-            // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.openToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -114,7 +105,7 @@
             this.exitToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.exitToolStripMenuItem.ForeColor = System.Drawing.SystemColors.Window;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -133,7 +124,7 @@
             this.resetFiltersToolStripMenuItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
             this.resetFiltersToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
             this.resetFiltersToolStripMenuItem1.Name = "resetFiltersToolStripMenuItem1";
-            this.resetFiltersToolStripMenuItem1.Size = new System.Drawing.Size(136, 22);
+            this.resetFiltersToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.resetFiltersToolStripMenuItem1.Text = "Reset Filters";
             this.resetFiltersToolStripMenuItem1.Click += new System.EventHandler(this.ResetFiltersToolStripMenuItem1_Click);
             // 
@@ -178,7 +169,7 @@
             // 
             // toolStripStatusLabelInfo
             // 
-            this.toolStripStatusLabelInfo.ForeColor = System.Drawing.SystemColors.Window;
+            this.toolStripStatusLabelInfo.ForeColor = System.Drawing.Color.White;
             this.toolStripStatusLabelInfo.Name = "toolStripStatusLabelInfo";
             this.toolStripStatusLabelInfo.Size = new System.Drawing.Size(16, 17);
             this.toolStripStatusLabelInfo.Text = "...";
@@ -259,6 +250,7 @@
             this.checkedListBoxMain.Sorted = true;
             this.checkedListBoxMain.TabIndex = 0;
             this.checkedListBoxMain.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CheckedListBoxMain_ItemCheck);
+            this.checkedListBoxMain.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.CheckedListBoxMain_ControlRemoved);
             // 
             // checkedListBoxMore
             // 
@@ -275,6 +267,7 @@
             this.checkedListBoxMore.Sorted = true;
             this.checkedListBoxMore.TabIndex = 0;
             this.checkedListBoxMore.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.CheckedListBoxMore_ItemCheck);
+            this.checkedListBoxMore.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.CheckedListBoxMore_ControlRemoved);
             // 
             // richTextBoxInfo
             // 
@@ -308,6 +301,25 @@
             this.scintillaCustom1.WrapMode = ScintillaNET.WrapMode.Whitespace;
             this.scintillaCustom1.TextChanged += new System.EventHandler(this.ScintillaCustom1_TextChanged);
             this.scintillaCustom1.Click += new System.EventHandler(this.ScintillaCustom1_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fontToolStripMenuItem});
+            this.editToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // fontToolStripMenuItem
+            // 
+            this.fontToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(53)))), ((int)(((byte)(59)))));
+            this.fontToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.fontToolStripMenuItem.Name = "fontToolStripMenuItem";
+            this.fontToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fontToolStripMenuItem.Text = "Font";
+            this.fontToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.fontToolStripMenuItem.Click += new System.EventHandler(this.FontToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -357,7 +369,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem resetFiltersToolStripMenuItem;
         private System.Windows.Forms.RichTextBox richTextBoxInfo;
-        private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetFiltersToolStripMenuItem1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
@@ -367,6 +378,8 @@
         private ScintillaCustom scintillaCustom1;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem systemInfoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fontToolStripMenuItem;
     }
 }
 
