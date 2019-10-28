@@ -54,7 +54,8 @@
         "112": "There isn't enough space on the disk for the product to be installed",
         "183": "\"Installer.exe is already running. Or, in case installer runs silent without \"/modify\", \"/repair\" or \"/remove\" command line parameter specified on a machine where the product has already been installed. This code is also returned when an older version of the product is run over a newer version.\"",
         "31": "Uninstalling a competitor product failed.",
-        "87": "The installer was started with an invalid command line or no feature was selected to be installed. Valid installer command line arguments are defined in  Installer parameters   section. //Did not download the files for BEST"
+        "87": "The installer was started with an invalid command line or no feature was selected to be installed. Valid installer command line arguments are defined in  Installer parameters   section. //Did not download the files for BEST",
+        "1027": "The installer was unable to remove previously existing LogMeIn AV or BitDefender services. Check services.msc for any previously existing LogMeIn AV or BitDefender EP entries and delete them from an admin command prompt using SC DELETE [SERVICE NAME]"
     },
   "LogMeIn": {
     "AutoUpdate": "Auto update service",
