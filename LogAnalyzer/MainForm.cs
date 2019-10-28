@@ -122,21 +122,23 @@ namespace LogAnalyzer
 
             // Redraw the filters
             List<string> splitFileContents = fileContentsOriginal.Split(new string[] { Environment.NewLine }, StringSplitOptions.None).ToList();
-
-            checkedListBoxMore.Items.Clear();
-            foreach (string item in jsonErrorInfo["LogMeIn"].Keys)
-            {
-                CheckListItem toAdd = CountMatches(item, splitFileContents);
-                if (toAdd.Display != string.Empty)
-                    checkedListBoxMore.Items.Add(toAdd);
-            }
-
+            SetFilterLabelInfo();
             checkedListBoxMain.Items.Clear();
+            filterListLeft.Clear();
             foreach (string item in logEntryTypes)
             {
                 CheckListItem toAdd = CountMatches(item, splitFileContents);
                 if (toAdd.Display != string.Empty)
                     checkedListBoxMain.Items.Add(toAdd);
+            }
+
+            checkedListBoxMore.Items.Clear();
+            filterListRight.Clear();
+            foreach (string item in jsonErrorInfo["LogMeIn"].Keys)
+            {
+                CheckListItem toAdd = CountMatches(item, splitFileContents);
+                if (toAdd.Display != string.Empty)
+                    checkedListBoxMore.Items.Add(toAdd);
             }
         }
 
@@ -152,7 +154,14 @@ namespace LogAnalyzer
         /// </summary>
         void SetFilterLabelInfo()
         {
-            labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.Concat(filterListRight))}";
+            if (filterListLeft.IsEmpty() && filterListRight.IsEmpty())
+            {
+                labelFilters.Text = "Filters:";
+            }
+            else
+            {
+                labelFilters.Text = $"Filters: {string.Join(", ", filterListLeft.Concat(filterListRight))}";
+            }
         }
 
         /// <summary>
