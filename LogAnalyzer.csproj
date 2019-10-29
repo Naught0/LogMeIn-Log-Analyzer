@@ -90,6 +90,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogAnalyzer\FormShowCtx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogAnalyzer\FormShowCtx.Designer.cs">
+      <DependentUpon>FormShowCtx.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogAnalyzer\FormSysInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,6 +124,9 @@
     <Compile Include="LogAnalyzer\utils\SysInfoParser.cs" />
     <Compile Include="LogAnalyzer\utils\Utils.cs" />
     <Compile Include="LogAnalyzer\utils\LogParser.cs" />
+    <EmbeddedResource Include="LogAnalyzer\FormShowCtx.resx">
+      <DependentUpon>FormShowCtx.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogAnalyzer\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

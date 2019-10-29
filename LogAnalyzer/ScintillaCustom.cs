@@ -1,5 +1,6 @@
 ﻿using ScintillaNET;
 using System;
+using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,6 +16,8 @@ namespace LogAnalyzer
         MenuItem _Delete;
         MenuItem _SelectAll;
         MenuItem showContext;
+
+        public int ContextLength { get; set; }
 
         // Colors for the editor
         public readonly Color colorBG = Color.FromArgb(0x34353B);
@@ -38,7 +41,7 @@ namespace LogAnalyzer
         {
             ContextMenu cm = ContextMenu = new ContextMenu();
 
-            showContext = new MenuItem("Show Context", (s, ea) => { }); // do nothing for now
+            showContext = new MenuItem("Show Context", (s, ea) => ShowContext());
             cm.MenuItems.Add(showContext);
 
             cm.MenuItems.Add(new MenuItem("-"));
@@ -95,6 +98,20 @@ namespace LogAnalyzer
             TabIndex = 0;
             WrapMode = WrapMode.Whitespace;
             BorderStyle = BorderStyle.None;
+        }
+
+        public void ShowContext()
+        {
+            var sb = new StringBuilder();
+            for (int i = CurrentLine - ContextLength; i < CurrentLine + ContextLength; i++)
+            {
+                sb.Append(Lines[i].Text);
+            }
+            MessageBox.Show(Lines[CurrentLine + ContextLength].Text);
+            using (Form ctx = new FormShowCtx(sb.ToString()))
+            {
+                ctx.ShowDialog();
+            }
         }
     }
 }

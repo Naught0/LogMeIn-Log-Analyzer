@@ -222,7 +222,7 @@ namespace LogAnalyzer
         void SetLabelInfo()
         {
             toolStripStatusLabelInfo.Text = 
-                $"L: {scintillaCustom1.Text.Count(f => f == '\n'):n0} W: {scintillaCustom1.Text.Split(' ').Length:n0} C: {scintillaCustom1.Text.Length:n0}";
+                $"L: {scintillaCustom1.Lines.Count():n0} W: {scintillaCustom1.Text.Split(' ').Length:n0} C: {scintillaCustom1.Text.Length:n0}";
         }
         
         /// <summary>
