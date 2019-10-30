@@ -16,8 +16,12 @@ namespace LogAnalyzer
         {
             InitializeComponent();
 
-            // Removes the line count because it's irrelevant in this context
-            scintillaCustomShowCtx.Margins[0].Width = 0;
+            // Removes the line count margin because it's irrelevant in this context
+            foreach (var margin in scintillaCustomShowCtx.Margins)
+            {
+                margin.Width = 0;
+            }
+            scintillaCustomShowCtx.ReadOnly = false;
             scintillaCustomShowCtx.Text = showText;
             scintillaCustomShowCtx.ReadOnly = true;
         }

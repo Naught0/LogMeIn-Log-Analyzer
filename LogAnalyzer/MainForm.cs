@@ -61,7 +61,7 @@ namespace LogAnalyzer
         
         // Init file information
         string fileNameOpen = string.Empty;
-        string fileContentsOriginal = string.Empty;
+        public static string fileContentsOriginal = string.Empty;
 
         // Store filter information
         List<string> filterListLeft = new List<string>();

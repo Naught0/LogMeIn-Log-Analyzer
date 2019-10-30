@@ -1,5 +1,6 @@
 ﻿using ScintillaNET;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,15 +10,15 @@ namespace LogAnalyzer
     class ScintillaCustom : Scintilla
     {
         // Menu items for right click
-        MenuItem _Undo;
-        MenuItem _Redo;
-        MenuItem _Cut;
         MenuItem _Copy;
-        MenuItem _Delete;
         MenuItem _SelectAll;
         MenuItem showContext;
 
-        public int ContextLength { get; set; }
+        /// <summary>
+        /// Sets how many lines the 'Show Context' menu item will scroll back.
+        /// Defaults to 20
+        /// </summary>
+        public int ContextLength { get; set; } = 20;
 
         // Colors for the editor
         public readonly Color colorBG = Color.FromArgb(0x34353B);
@@ -46,26 +47,8 @@ namespace LogAnalyzer
 
             cm.MenuItems.Add(new MenuItem("-"));
 
-            _Undo = new MenuItem("Undo", (s, ea) => Undo());
-            cm.MenuItems.Add(_Undo);
-
-            _Redo = new MenuItem("Redo", (s, ea) => Redo());
-            cm.MenuItems.Add(_Redo);
-
-            cm.MenuItems.Add(new MenuItem("-"));
-
-            _Cut = new MenuItem("Cut", (s, ea) => Cut());
-            cm.MenuItems.Add(_Cut);
-
             _Copy = new MenuItem("Copy", (s, ea) => Copy());
             cm.MenuItems.Add(_Copy);
-
-            cm.MenuItems.Add(new MenuItem("Paste", (s, ea) => Paste()));
-
-            _Delete = new MenuItem("Delete", (s, ea) => ReplaceSelection(""));
-            cm.MenuItems.Add(_Delete);
-
-            cm.MenuItems.Add(new MenuItem("-"));
 
             _SelectAll = new MenuItem("Select All", (s, ea) => SelectAll());
             cm.MenuItems.Add(_SelectAll);
@@ -100,14 +83,40 @@ namespace LogAnalyzer
             BorderStyle = BorderStyle.None;
         }
 
-        public void ShowContext()
+        public void GetTextLineRange(int startRange, int endRange)
         {
             var sb = new StringBuilder();
-            for (int i = CurrentLine - ContextLength; i < CurrentLine + ContextLength; i++)
+            //for (int i = startRange; i < endRange; i++)
+            //{
+            //    sb.Append
+            //}
+        }
+        public void ShowContext()
+        {
+            var toParse = new  List<string>(MainForm.fileContentsOriginal.Split('\n'));
+            var line = Lines[CurrentLine].Text.Trim(new char[] { '\n', '\r' });
+            var lineIdx = toParse.IndexOf(line);
+
+            // get beginning of context
+            int begin;
+            if (lineIdx - ContextLength < 0)
+                begin = 0;
+            else
+                begin = lineIdx - ContextLength;
+
+            // get end of context
+            int end;
+            if (lineIdx + ContextLength > toParse.Count)
+                end = toParse.Count;
+            else
+                end = lineIdx + ContextLength;
+
+            var sb = new StringBuilder();
+            for (int i = begin; i <= end; i++)
             {
-                sb.Append(Lines[i].Text);
+                sb.Append(toParse[i]);
             }
-            MessageBox.Show(Lines[CurrentLine + ContextLength].Text);
+
             using (Form ctx = new FormShowCtx(sb.ToString()))
             {
                 ctx.ShowDialog();
