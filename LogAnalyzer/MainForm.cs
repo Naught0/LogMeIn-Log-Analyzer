@@ -271,8 +271,7 @@ namespace LogAnalyzer
         /// <param name="e"></param>
         void ScintillaCustom1_TextChanged(object sender, EventArgs e)
         {
-            // Don't do this until I can fix the linecount
-            //SetLabelInfo();
+            SetLabelInfo();
         }
 
         /// <summary>
