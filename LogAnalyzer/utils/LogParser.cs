@@ -51,6 +51,14 @@ namespace LogAnalyzer.utils
                             builder.AppendLine($"\nError {code} info: \n{lmiErrorInfo["AV Install"][code]}\n");
                         }
                     }
+                    // iterates update erors and checks for them
+                    foreach (string code in lmiErrorInfo["AV Updates"].Keys)
+                    {
+                        if (line.Contains($": {code})") && line.Contains("update"))
+                        {
+                            builder.AppendLine($"\nUpdate Error {code} info:\n{lmiErrorInfo["AV Updates"][code]}\n");
+                        }
+                    }
                 }
                 // More of the same ugly
                 if (line.Contains(" Socket "))
