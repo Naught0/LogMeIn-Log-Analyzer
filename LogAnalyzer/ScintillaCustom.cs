@@ -114,7 +114,15 @@ namespace LogAnalyzer
             var sb = new StringBuilder();
             for (int i = begin; i <= end; i++)
             {
-                sb.Append(toParse[i]);
+                try
+                {
+                    sb.Append(toParse[i]);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.ToString());
+                    return;
+                }
             }
 
             using (Form ctx = new FormShowCtx(sb.ToString()))
